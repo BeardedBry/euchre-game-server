@@ -13,9 +13,34 @@ form#chatForm input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
 form#chatForm button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
 #messages { list-style-type: none; margin: 0; padding: 0; background-color: 'tan'}
 #messages li { padding: 5px 10px; }
-#messages li:nth-child(odd) { background: #eee; }
-#name-screen { text-align: center; margin-top: 40%;}
+#messages li:nth-child(odd) { background: #ddd; }
 #chat-screen { display: none;}
+
+.message-time {
+    float: right;
+    padding-right: 2rem;
+    color: #555;
+}
+
+#wrapper{
+    position: relative;
+    width: 100%;
+    height: 500px;
+}
+#name-screen {
+    position: absolute;
+    margin: 0 auto;
+    text-align: center;
+    width: 10rem;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#name-screen form > * {
+    margin: .5rem;
+    padding: .5rem;
+}
 
 .anouncement {
     display: inline-block;
