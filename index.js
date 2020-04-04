@@ -16,6 +16,13 @@ io.on('connection', function(socket){
         console.log('user disconnected');
     });
 
+    // recieve 'user joined' 
+    socket.on('user joined', function(userObj){
+        console.log(`${userObj.user} has joined`)
+        io.emit('user joined', userObj);
+    })
+
+    // recieve 'chat message' 
     socket.on('chat message', function(msgObject){
         console.log(msgObject);
         io.emit('all msg', msgObject); // sends to all connected sockets.

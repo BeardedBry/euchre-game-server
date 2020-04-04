@@ -16,3 +16,14 @@ form#chatForm button { width: 9%; background: rgb(130, 224, 255); border: none; 
 #messages li:nth-child(odd) { background: #eee; }
 #name-screen { text-align: center; margin-top: 40%;}
 #chat-screen { display: none;}
+
+.anouncement {
+    display: inline-block;
+    width: 100%;
+    background-color: lightskyblue !important; 
+}
+
+.anouncement-user {
+    color: darkslategray;
+    background-color: greenyellow;
+}
