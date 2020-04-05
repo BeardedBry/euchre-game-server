@@ -20,6 +20,7 @@
                 name: userName,
                 id: socket.id
             });
+            document.querySelector('#m').focus();
             return this.removeEventListener('submit', setName);
         }
     });

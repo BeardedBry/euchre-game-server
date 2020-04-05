@@ -16,7 +16,7 @@ io.on('connection', function(socket){
 
     // on a user disconnecting
     socket.on('disconnect', function(){
-        console.log('disconnected');
+        //console.log('disconnected');
         io.clients((error, clients) => {
             if (error) throw error;
             //console.log(clients); // => [6em3d4TJP8Et9EMNAAAA, G5p55dHhGgUnLUctAAAB]
@@ -50,13 +50,18 @@ const addUser = (user) => {
 }
 
 const removeUser = (clients) => {
-    var currentUsers = users.map(user => user.id);
-    var disconnectId = compare(currentUsers, clients);
-    disconnectedIndex = currentUsers.findIndex((userId) => userId === disconnectId);
-    
-    var [removedUser] = users.splice(1,disconnectedIndex);
-    console.log('disconnected: ' + removedUser.name);
-    return removedUser;
+    try{
+        var currentUsers = users.map(user => user.id);
+        var disconnectId = compare(currentUsers, clients);
+        disconnectedIndex = currentUsers.findIndex((userId) => userId === disconnectId);
+        //console.log('disconnectedIndex: ', disconnectedIndex);
+
+        var [removedUser] = users.splice(disconnectedIndex, 1);
+        console.log('disconnected: ' + removedUser.name);
+        return removedUser;
+    }catch(e){
+        console.error('trouble removing user',e);
+    }
 }
 
 // compare two arrays
@@ -69,6 +74,7 @@ function compare(arr1, arr2){
             break;
         }
     }
+    //console.log('non match:', nonmatch);
     return nonmatch;
 }
 
