@@ -28,7 +28,7 @@ io.on('connection', function(socket){
 
     // recieve 'user joined' 
     socket.on('user joined', function(userObj){
-        console.log(`${userObj.user} has joined`)
+        console.log(`${userObj.name} has joined`)
         addUser(userObj);
         io.emit('user joined', userObj, users);
     });
@@ -55,7 +55,7 @@ const removeUser = (clients) => {
     disconnectedIndex = currentUsers.findIndex((userId) => userId === disconnectId);
     
     var [removedUser] = users.splice(1,disconnectedIndex);
-    console.log('disconnected: ' + removedUser.user);
+    console.log('disconnected: ' + removedUser.name);
     return removedUser;
 }
 

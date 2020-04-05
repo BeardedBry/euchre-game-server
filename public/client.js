@@ -17,7 +17,7 @@
             document.querySelector('#chat-screen').style.display = 'block';
             document.body.style.backgroundColor = '#EEE';
             socket.emit('user joined', {
-                user: userName,
+                name: userName,
                 id: socket.id
             });
             return this.removeEventListener('submit', setName);
@@ -34,7 +34,7 @@
         var msgInput = this.querySelector('#m');
         socket.emit('chat message', {
             message: msgInput.value,
-            user: userName,
+            name: userName,
             time: new Date()
         });
         // do something
@@ -43,7 +43,7 @@
 
     // Receive user joined
     socket.on('user joined', function(userObj, users){
-        var liSpan = newLi(`<span class="anouncement-user">${userObj.user}</span> has joined the chat.`,['anouncement']);
+        var liSpan = newLi(`<span class="anouncement-user">${userObj.name}</span> has joined the chat.`,['anouncement']);
         console.log('user joined', userObj);
         //console.log(users);
         userList = users;
@@ -53,8 +53,7 @@
 
     // user left
     socket.on('user left', function(removedUser, users){
-        console.log(removedUser);
-        var liSpan = newLi(`<span class="anouncement-user">${removedUser.user}</span> has left the chat.`,['anouncement']); 
+        var liSpan = newLi(`<span class="anouncement-user">${removedUser.name}</span> has left the chat.`,['anouncement']); 
         userList = users;
         updateOnlineUi();
         messageUl.appendChild(liSpan);
@@ -63,7 +62,7 @@
     // Receive Message
     socket.on('all msg', function(msgObject){
         var time = handleTime(msgObject.time);
-        var li = newLi(`<strong>${msgObject.user}</strong>: ${msgObject.message} <span class="message-time">${time}</span>`);
+        var li = newLi(`<strong>${msgObject.name}</strong>: ${msgObject.message} <span class="message-time">${time}</span>`);
         messageUl.appendChild(li);
     });
 
@@ -111,7 +110,7 @@
         });
         // make new list
         userList.map(function(user){
-            let li = newLi(`${user.user}`);
+            let li = newLi(`${user.name}`);
             onlineUl.appendChild(li);
         });
     }
