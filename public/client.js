@@ -1,8 +1,10 @@
-(function(){
+//(function(){
     var socket = io();
     var messageUl = document.querySelector('#messages');
+    var onlineUl = document.querySelector('#online-ul');
     var chatForm = document.querySelector('#chatForm');
     var userName = '';
+    var userList = [];
     
     // Choose display name
     document.querySelector('#nameForm').addEventListener('submit', function setName(e){
@@ -15,11 +17,16 @@
             document.querySelector('#chat-screen').style.display = 'block';
             document.body.style.backgroundColor = '#EEE';
             socket.emit('user joined', {
-                user: userName
+                user: userName,
+                id: socket.id
             });
             return this.removeEventListener('submit', setName);
         }
     });
+
+    // socket.emit('user joined', {
+    //     user: userName,
+    // });
 
     // Send message
     chatForm.addEventListener('submit', function(e){
@@ -35,11 +42,23 @@
     });
 
     // Receive user joined
-    socket.on('user joined', function(userObj){
+    socket.on('user joined', function(userObj, users){
         var liSpan = newLi(`<span class="anouncement-user">${userObj.user}</span> has joined the chat.`,['anouncement']);
         console.log('user joined', userObj);
+        //console.log(users);
+        userList = users;
+        updateOnlineUi();
         messageUl.appendChild(liSpan);
     })
+
+    // user left
+    socket.on('user left', function(removedUser, users){
+        console.log(removedUser);
+        var liSpan = newLi(`<span class="anouncement-user">${removedUser.user}</span> has left the chat.`,['anouncement']); 
+        userList = users;
+        updateOnlineUi();
+        messageUl.appendChild(liSpan);
+    });
 
     // Receive Message
     socket.on('all msg', function(msgObject){
@@ -48,25 +67,27 @@
         messageUl.appendChild(li);
     });
 
-
     // return formatted time
     function handleTime(date){
         var today = new Date(date);
         var hour = today.getHours();
         var minutes = today.getMinutes();
 
+        if(minutes < 10){
+            minutes = '0' + minutes;
+        }
         var meridiem = 'pm';
-        //var noon = hour > 11 ? 'pm' : 'am';
+
         if (hour > 12){
             hour = hour - 12;
         }else{
             meridiem = 'am';
         }
         return (hour + ":" + minutes + ' ' + meridiem);
-        //return [hour, minutes, meridiem];
     }
 
-    // UI
+
+    // UI functions
 
     // build <li>
     function newLi(html, classes){
@@ -82,4 +103,17 @@
         return li;
     }
 
-})();
+    function updateOnlineUi(){
+        // remove old list.
+        var oldList = onlineUl.querySelectorAll('li');
+        oldList.forEach(function(item){
+            onlineUl.removeChild(item);
+        });
+        // make new list
+        userList.map(function(user){
+            let li = newLi(`${user.user}`);
+            onlineUl.appendChild(li);
+        });
+    }
+
+//})();
