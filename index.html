@@ -5,9 +5,13 @@
     <link rel="stylesheet" href="static/style.css";
   </head>
   <body>
+    <!-- iframe for game -->
+    <div id="game-frame"></div>
+    <!-- Header -->
     <div id="header">
         <h1>Euchre</h1>
     </div>
+    <!-- Name screen -->
     <div id="wrapper">
         <div id="name-screen">
             <form action="" id="nameForm">
@@ -15,23 +19,37 @@
             </form>
         </div>
     </div>
-    <!-- wrapper -->
+    <!-- Chat Screen -->
     <div id="chat-screen">
-        <div id="chat-screen-inner">
-            <div id="online">
-                <h3>Online</h3>
-                <ul id="online-ul"></ul>
-            </div>
-            <ul id="messages"></ul>
-            <div id="games">
-                <h3>Games</h3>
-                <ul id="games-ul"></ul>
-            </div>
+        <!-- Sidebar fixed left -->
+        <div id="online">
+            <h3>Online</h3>
+            <ul id="online-ul"></ul>
         </div>
+
+        <div id="messagesDiv">
+            <ul id="messages">
+            </ul>
+        </div>
+
+        <!-- Fixed right -->
+        <div id="games">
+            <h3>Games</h3>
+            <ul id="games-ul">
+                <li>
+                    <button onclick="joinRoom('one')">Join Table One</button>
+                    <button onclick="roomTest()">Table one log</button>
+                    <button onclick="leaveRoom('one')">Leave Table One</button>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- Chat form. stuck to bottom -->
         <form action="" id="chatForm">
-        <input id="m" autocomplete="off" /><button>Send</button>
+            <input id="m" autocomplete="off" /><button>Send</button>
         </form>
     </div>
+
     <script src="/socket.io/socket.io.js"></script>
     <script src="/static/client.js"></script>
     </script>

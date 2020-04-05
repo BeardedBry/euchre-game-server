@@ -16,31 +16,42 @@ form#chatForm button { width: 9%; background: rgb(130, 224, 255); border: none; 
 
 #header { margin: 1rem auto; text-align: center}
 
-#chat-screen { display: none;}
-
-#chat-screen-inner {
-    display: flex;
+#chat-screen { 
+    display: none;
 }
 
 #online {
+    position: fixed;
+    left: 0;
     width: 6rem;
     border-right: 1px solid black;
+    margin-left: 1rem;
 }
 
 #online h3 {padding-bottom: 1rem;}
+#online ul { list-style-type: none;}
+
+#messagesDiv {
+    margin-left: 7rem;
+    float: left;
+}
 
 #messages {
     width: 100%;
     list-style-type: none;
     margin: 0;
+    margin-bottom: 2.5rem;
     padding: 0;
     background-color: 'tan'
 }
 
-#games {
-    min-width: 6rem;
-    text-align: center;
+#games { min-width: 6rem; text-align: center; margin-right: 1rem;
+    position: fixed;
+    right: 0;
 }
+#games-ul {list-style-type: none;}
+#games-ul li {padding: .25rem;}
+#games-ul button {padding: .75rem;}
 
 .message-time {
     float: right;

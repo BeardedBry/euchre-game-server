@@ -41,6 +41,23 @@ chat.on('connection', function(socket){
         console.log(msgObject);
         chat.emit('all msg', msgObject); // sends to all connected sockets.
     });
+
+    // join room
+    socket.on('join room', function(room){
+        console.log('user wants to join room:', room);
+        socket.join('one');
+    })
+
+    // leave room
+    socket.on('leave room', function(room){
+        console.log('user wants to leave room:', room);
+        socket.leave('one');
+    });
+
+    socket.on('room', function(){
+        chat.to('one').emit('room one event');
+    });
+
 });
 
 

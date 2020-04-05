@@ -14,8 +14,28 @@ TODO
     var messageUl = document.querySelector('#messages');
     var onlineUl = document.querySelector('#online-ul');
     var chatForm = document.querySelector('#chatForm');
+    var gameTables = document.querySelectorAll("#game-ul button");
     var userName = '';
     var userList = [];
+
+
+    // join a game
+    function joinRoom(room){
+        socket.emit('join room', room);
+    }
+
+    function leaveRoom(room){
+        socket.emit('leave room', room);
+    }
+
+    function roomTest(){
+        //console.log('you are in room!')
+        socket.emit('room');
+    }
+
+    socket.on('room one event', function(){
+        console.log('message to users in room 1!');
+    });
     
     // Choose display name
     document.querySelector('#nameForm').addEventListener('submit', function setName(e){
@@ -35,10 +55,6 @@ TODO
             return this.removeEventListener('submit', setName);
         }
     });
-
-    // socket.emit('user joined', {
-    //     user: userName,
-    // });
 
     // Send message
     chatForm.addEventListener('submit', function(e){
