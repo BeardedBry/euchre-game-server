@@ -1,5 +1,16 @@
+/*
+TODO
+
+ - set a dn (display: none) class on everything at the start except the nameForm
+ - remove these classes on submission of name form.
+ - investigate storing user names and profiles. persistant data.
+ - Join a new io namespace for joining a game.
+
+*/
+
+
 //(function(){
-    var socket = io();
+    var socket = io('/chat');
     var messageUl = document.querySelector('#messages');
     var onlineUl = document.querySelector('#online-ul');
     var chatForm = document.querySelector('#chatForm');

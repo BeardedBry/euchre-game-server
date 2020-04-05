@@ -11,36 +11,35 @@ app.get('/', function(req, res){
 
 app.use('/static', express.static('public'))
 
-io.on('connection', function(socket){
+// chat namespace
+const chat = io.of('/chat');
+
+// io socket
+chat.on('connection', function(socket){
     console.log('a user has connected');
 
     // on a user disconnecting
     socket.on('disconnect', function(){
         //console.log('disconnected');
-        io.clients((error, clients) => {
+        chat.clients((error, clients) => {
             if (error) throw error;
             //console.log(clients); // => [6em3d4TJP8Et9EMNAAAA, G5p55dHhGgUnLUctAAAB]
             const removedUser = removeUser(clients);
-            io.emit('user left', removedUser, users);
+            chat.emit('user left', removedUser, users);
         });
-        //io.emit('user left', users);
     });
 
     // recieve 'user joined' 
     socket.on('user joined', function(userObj){
         console.log(`${userObj.name} has joined`)
         addUser(userObj);
-        io.emit('user joined', userObj, users);
+        chat.emit('user joined', userObj, users);
     });
-
-    // socket.on('user left', function(){
-    //     console.log('user has left');
-    // })
 
     // recieve 'chat message' 
     socket.on('chat message', function(msgObject){
         console.log(msgObject);
-        io.emit('all msg', msgObject); // sends to all connected sockets.
+        chat.emit('all msg', msgObject); // sends to all connected sockets.
     });
 });
 
@@ -64,7 +63,15 @@ const removeUser = (clients) => {
     }
 }
 
-// compare two arrays
+const port = 3005;
+http.listen(port, function(){
+    console.log(`listening on port ${port}`);
+});
+
+
+// helper functions //
+
+// compare two arrays, return element that is missing.
 function compare(arr1, arr2){
     var nonmatch;
     for(let i = 0; i < arr1.length; i++){
@@ -77,8 +84,3 @@ function compare(arr1, arr2){
     //console.log('non match:', nonmatch);
     return nonmatch;
 }
-
-
-http.listen(3005, function(){
-    console.log('listening on port 3000');
-});
