@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Socket.IO chat funfun</title>
+    <link rel="stylesheet" href="static/styleProto.css";
+  </head>
+  <body>
+    <!-- iframe for game -->
+    <div id="game-frame"></div>
+    <!-- Header -->
+    <div id="header">
+        <h1>Euchre</h1>
+    </div>
+    <!-- Name screen -->
+    <!-- <div id="wrapper">
+        <div id="name-screen">
+            <form action="" id="nameForm">
+                    <input id="name" autocomplete="off" /><button>Set Name</button>
+            </form>
+        </div>
+    </div> -->
+    <!-- Chat Screen -->
+    <div id="main">
+        <!-- Sidebar fixed left -->
+        <div id="sidebar">
+
+            <div id="online">
+                <h3>Online</h3>
+                <ul id="online-ul"></ul>
+            </div>
+
+        </div>
+
+        <div id="messagesDiv">
+            <ul id="messages">
+            </ul>
+        </div>
+
+        <!-- rightbar  -->
+        <div id="rightbar">
+            <div id="games">
+                <h3>Games</h3>
+                <ul id="games-ul">
+                    <li>
+                        <button onclick="joinRoom('one')">Join Table One</button>
+                        <button onclick="roomTest()">Table one log</button>
+                        <button onclick="leaveRoom('one')">Leave Table One</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+    
+    <!-- Chat form. stuck to bottom -->
+    <form action="" id="chatForm">
+        <input id="m" autocomplete="off" /><button>Send</button>
+    </form>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/static/client.js"></script>
+    </script>
+  </body>
+</html>

@@ -9,6 +9,10 @@ app.get('/', function(req, res){
     res.sendFile(__dirname + '/index.html');
 });
 
+app.get('/proto', function(req, res){
+    res.sendFile(__dirname + '/indexProto.html');
+});
+
 app.use('/static', express.static('public'))
 
 // chat namespace

@@ -18,22 +18,25 @@ form#chatForm button { width: 9%; background: rgb(130, 224, 255); border: none; 
 
 #main { 
     /* display: none; */
+    display: flex;
 }
 
-#online {
-    position: fixed;
+#sidebar {
     left: 0;
     width: 6rem;
     border-right: 1px solid black;
     margin-left: 1rem;
 }
 
+#rightbar{
+    width: 6rem;
+}
+
 #online h3 {padding-bottom: 1rem;}
 #online ul { list-style-type: none;}
 
 #messagesDiv {
-    margin-left: 7rem;
-    float: left;
+    width: 10rem;
 }
 
 #messages {
@@ -45,9 +48,10 @@ form#chatForm button { width: 9%; background: rgb(130, 224, 255); border: none; 
     background-color: 'tan'
 }
 
-#games { min-width: 6rem; text-align: center; margin-right: 1rem;
-    position: fixed;
-    right: 0;
+#games { 
+    min-width: 6rem;
+    text-align: center;
+    margin-right: 1rem;
 }
 #games-ul {list-style-type: none;}
 #games-ul li {padding: .25rem;}

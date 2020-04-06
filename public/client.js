@@ -15,7 +15,7 @@ TODO
     var onlineUl = document.querySelector('#online-ul');
     var chatForm = document.querySelector('#chatForm');
     var gameTables = document.querySelectorAll("#game-ul button");
-    var userName = '';
+    var userName = 'Brian';
     var userList = [];
 
 
@@ -38,23 +38,30 @@ TODO
     });
     
     // Choose display name
-    document.querySelector('#nameForm').addEventListener('submit', function setName(e){
-        e.preventDefault();
-        var nameInput = this.querySelector('#name');
-        if(nameInput.value.length > 0){
-            userName = nameInput.value;
-            console.log('name set to ' + userName);
-            document.querySelector('#wrapper').style.display = 'none';
-            document.querySelector('#chat-screen').style.display = 'block';
-            document.body.style.backgroundColor = '#EEE';
-            socket.emit('user joined', {
-                name: userName,
-                id: socket.id
-            });
-            document.querySelector('#m').focus();
-            return this.removeEventListener('submit', setName);
-        }
-    });
+    // document.querySelector('#nameForm').addEventListener('submit', function setName(e){
+    //     e.preventDefault();
+    //     var nameInput = this.querySelector('#name');
+    //     if(nameInput.value.length > 0){
+    //         userName = nameInput.value;
+    //         console.log('name set to ' + userName);
+    //         document.querySelector('#wrapper').style.display = 'none';
+    //         document.querySelector('#main').style.display = 'block';
+    //         document.body.style.backgroundColor = '#EEE';
+    //         socket.emit('user joined', {
+    //             name: userName,
+    //             id: socket.id
+    //         });
+    //         document.querySelector('#m').focus();
+    //         return this.removeEventListener('submit', setName);
+    //     }
+    // });
+
+    setTimeout(()=>{
+        socket.emit('user joined', {
+            name: userName,
+            id: socket.id
+        });
+    },500)
 
     // Send message
     chatForm.addEventListener('submit', function(e){
