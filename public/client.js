@@ -166,8 +166,12 @@ TODO
         let pageYOffset = window.pageYOffset;
         //let liPosition = li.offsetTop;
         
-        // innerHeight + pagoffest - 40 < li position then scroll
-        if( (innerHeight+pageYOffset - 60) < offsetTop && (offsetTop - (pageYOffset+innerHeight)) < innerHeight) {
+        // innerHeight + pagoffest - 60 < li position then scroll
+        // console.log(offsetTop - (pageYOffset+(innerHeight/3)));
+        // console.log('innerHeight', innerHeight);
+
+
+        if( (innerHeight+pageYOffset - 60) < offsetTop && (offsetTop - (pageYOffset+(innerHeight/3))) < innerHeight) {
             scrollTo(0,offsetTop);
         }
     }
