@@ -29,18 +29,21 @@ chat.on('connection', function(socket){
         });
     });
 
-    // recieve 'user joined' 
+    // receive 'user joined' 
     socket.on('user joined', function(userObj){
         console.log(`${userObj.name} has joined`)
         addUser(userObj);
         chat.emit('user joined', userObj, users);
     });
 
-    // recieve 'chat message' 
+    // receive 'chat message' 
     socket.on('chat message', function(msgObject){
         console.log(msgObject);
         chat.emit('all msg', msgObject); // sends to all connected sockets.
     });
+
+
+    // room functions //
 
     // join room
     socket.on('join', function(roomNum){
