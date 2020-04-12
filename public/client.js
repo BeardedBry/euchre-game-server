@@ -8,7 +8,6 @@ TODO
 
 */
 
-
 //(function(){
     var socket = io('/chat');
     var messageUl = document.querySelector('#messages');
@@ -18,23 +17,26 @@ TODO
     var userName = 'Brian';
     var userList = [];
 
-
+    // Connect/Disconnect Client to rooms
     // join a game
-    function joinRoom(room){
-        socket.emit('join room', room);
+    function joinRoom(roomNum){
+        socket.emit('join', roomNum);
     }
 
-    function leaveRoom(room){
-        socket.emit('leave room', room);
+    // leave room
+    function leaveRoom(roomNum){
+        socket.emit('leave', roomNum);
     }
 
-    function roomTest(){
+    // Gets [roomNum] from the index.html
+    function ping(roomNum){
         //console.log('you are in room!')
-        socket.emit('room');
+        socket.emit('room message', roomNum);
     }
 
-    socket.on('room one event', function(){
-        console.log('message to users in room 1!');
+    // Receive  message
+    socket.on('ping room', function(n){
+        console.log('message to users in room', n);
     });
     
     // Choose display name
@@ -99,29 +101,14 @@ TODO
         var time = handleTime(msgObject.time);
         var li = newLi(`<strong>${msgObject.name}</strong>: ${msgObject.message} <span class="message-time">${time}</span>`);
         messageUl.appendChild(li);
+        // scroll to position if screen isn't too high up.
+        scrollToPosition(li.offsetTop);
     });
 
-    // return formatted time
-    function handleTime(date){
-        var today = new Date(date);
-        var hour = today.getHours();
-        var minutes = today.getMinutes();
-
-        if(minutes < 10){
-            minutes = '0' + minutes;
-        }
-        var meridiem = 'pm';
-
-        if (hour > 12){
-            hour = hour - 12;
-        }else{
-            meridiem = 'am';
-        }
-        return (hour + ":" + minutes + ' ' + meridiem);
-    }
 
 
-    // UI functions
+
+// UI functions
 
     // build <li>
     function newLi(html, classes){
@@ -148,6 +135,41 @@ TODO
             let li = newLi(`${user.name}`);
             onlineUl.appendChild(li);
         });
+    }
+
+
+
+// Helper Functions
+
+     // return formatted time
+     function handleTime(date){
+        var today = new Date(date);
+        var hour = today.getHours();
+        var minutes = today.getMinutes();
+
+        if(minutes < 10){
+            minutes = '0' + minutes;
+        }
+        var meridiem = 'pm';
+
+        if (hour > 12){
+            hour = hour - 12;
+        }else{
+            meridiem = 'am';
+        }
+        return (hour + ":" + minutes + ' ' + meridiem);
+    }
+
+
+    function scrollToPosition(offsetTop) {
+        let innerHeight = window.innerHeight;
+        let pageYOffset = window.pageYOffset;
+        //let liPosition = li.offsetTop;
+        
+        // innerHeight + pagoffest - 40 < li position then scroll
+        if( (innerHeight+pageYOffset - 60) < offsetTop && (offsetTop - (pageYOffset+innerHeight)) < innerHeight) {
+            scrollTo(0,offsetTop);
+        }
     }
 
 //})();

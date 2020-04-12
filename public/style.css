@@ -93,3 +93,7 @@ form#chatForm button { width: 9%; background: rgb(130, 224, 255); border: none; 
 .spaceContent > * {
     padding: .3rem .1rem;
 }
+
+.dn {
+    display: none;
+}

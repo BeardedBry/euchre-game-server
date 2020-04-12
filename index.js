@@ -33,33 +33,36 @@ chat.on('connection', function(socket){
         });
     });
 
-    // recieve 'user joined' 
+    // receive 'user joined' 
     socket.on('user joined', function(userObj){
         console.log(`${userObj.name} has joined`)
         addUser(userObj);
         chat.emit('user joined', userObj, users);
     });
 
-    // recieve 'chat message' 
+    // receive 'chat message' 
     socket.on('chat message', function(msgObject){
         console.log(msgObject);
         chat.emit('all msg', msgObject); // sends to all connected sockets.
     });
 
+
+    // room functions //
+
     // join room
-    socket.on('join room', function(room){
-        console.log('user wants to join room:', room);
-        socket.join('one');
+    socket.on('join', function(roomNum){
+        console.log('user wants to join room:', roomNum);
+        socket.join(roomNum);
     })
 
     // leave room
-    socket.on('leave room', function(room){
-        console.log('user wants to leave room:', room);
-        socket.leave('one');
+    socket.on('leave', function(roomNum){
+        console.log('user wants to leave room:', roomNum);
+        socket.leave(roomNum);
     });
 
-    socket.on('room', function(){
-        chat.to('one').emit('room one event');
+    socket.on('room message', function(roomNum){
+        chat.to(roomNum).emit('ping room', roomNum);
     });
 
 });
